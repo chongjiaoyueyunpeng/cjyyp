@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>旅行:说走就走</title>
+  <!-- MDB icon -->
+  <link rel="icon" href="img/logo1.png" type="image/x-icon">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="css/mdb.min.css">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://api.go2map.com/maps/js/api_v2.5.1.js"></script>
+    <script type="text/javascript">
+        function loadMap(){
+            if(navigator.geolocation){
+                document.getElementById("status").innerHTML = "获取数据中...";
+                navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: 5000});
+            }else{
+                document.getElementById("status").innerHTML = "浏览器不支持！";
+            }
+        }
+        //        执行成功的回调方法
+        function onSuccess(position){
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+//            生成经纬度组合数据
+//            var latlon=new google.maps.LatLng(latitude,longitude);
+            var latlon = new sogou.maps.LatLng(latitude, longitude);
+//            选择元素
+            var mapholder=document.getElementById('mapholder');
+
+            //选项：中心、放大、地图类型、控制按钮
+            var myOptions={
+                center:latlon,
+                zoom:14,
+//                mapTypeId:google.maps.MapTypeId.ROADMAP,
+                mapTypeId:sogou.maps.MapTypeId.ROADMAP,
+                mapTypeControl:true
+            };
+//            以选项在页面指定位置生成地图
+//            var map=new google.maps.Map(mapholder,myOptions);
+            var map = new sogou.maps.Map(mapholder,  myOptions);
+            document.getElementById("status").innerHTML = "Sogou地图";
+//            生成标注
+//            var marker=new google.maps.Marker({position:latlon,map:map, title:"您在这儿"});
+            var marker = new sogou.maps.Marker({position:latlon, map:map, title:"您在这儿"});
+            //创建标注窗口
+//            var infowindow = new google.maps.InfoWindow({
+//                content:"您在这里<br/>纬度："+ latitude + "<br/>经度：" + longitude
+//            });
+            var infoWindow = new sogou.maps.InfoWindow({
+                content:"您在这里<br/>纬度："+ latitude + "<br/>经度：" + longitude
+            });
+            //显示标注窗口
+            infoWindow.open(map,marker);
+        }
+        //        失败时的回调方法
+        function onError(error){
+            var status = document.getElementById("status");
+            switch(error.code){
+                case error.PERMISSION_DENIED:
+                    status.innerHTML = "用户不允许！"; break;
+                case error.POSITION_UNAVAILABLE:
+                    status.innerHTML = "地理信息数据不可用！使用我家的固定坐标数据。";
+                    display();
+                    break;
+                case error.TIMEOUT:
+                    status.innerHTML = "获取地理信息数据超时！使用我家的固定坐标数据。";
+                    display();
+                    break;
+                default :
+                    status.innerHTML = "发生未知错误！"; break;
+            }
+        }
+        function display(){
+            var myLatlng = new sogou.maps.LatLng(29.502782699999997,106.57155259999999);
+            var myOptions = {
+                zoom: 14,
+                center: myLatlng,
+                mapTypeId: sogou.maps.MapTypeId.ROADMAP
+            };
+            map = new sogou.maps.Map(document.getElementById("mapholder"), myOptions);
+            marker = new sogou.maps.Marker({position:myLatlng, map:map, title:"我的家"});
+        }
+    </script>
+  
+</head>
+
+<body>
+  <script>
+    window.onload=function(){
+      document.getElementById("bt001").onclick=function(){
+        window.open("https://blog.csdn.net/weixin_45680700/article/details/117882627",'top');
+      }
+    }
+  
+  </script>
+  <!-- Main navigation -->
+  <header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar" style="background-image: url(./img/tt3.png);  background-size: 100% 100%;">
+      <div class="container">
+        <a class="navbar-brand" href="#">导航条</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto smooth-scroll">
+            <li class="nav-item">
+              <a class="nav-link" href="#intro">主页
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about" data-offset="90">选择自然</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projects" data-offset="90">旅行项目</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#gallery" data-offset="90">记录瞬间</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#mhsg" data-offset="90">美好时光</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#testimonials" data-offset="30">探险达人</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#articles" data-offset="90">购买产品</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact" data-offset="90">关于我们</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://blog.csdn.net/weixin_45680700/article/details/117882627" data-offset="90" id="bt001" >结业报告</a>
+            </li>
+          </ul>
+          <!-- Social Icon  -->
+          <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item">
+              <a class="nav-link" href="./login.html">
+                <i >退出登录</i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./login.html">
+                <i >注册账号</i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#articles">
+                <i >购物车</i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
+    <!-- Full Page Intro -->
+    <div class="view">
+      <video class="video-intro" poster="https://mdbootstrap.com/img/Photos/Others/background.jpg" playsinline autoplay
+        muted loop>
+        <source src="./img/mv1.mp4" type="video/mp4">
+      </video>
+      <!-- Mask & flexbox options-->
+      <div class="mask rgba-gradient d-flex justify-content-center align-items-center">
+        <!-- Content -->
+        <div class="container px-md-3 px-sm-0">
+          <!--Grid row-->
+          <div class="row wow fadeIn">
+            <!--Grid column-->
+            <div class="col-md-12 mb-4 white-text text-center wow fadeIn">
+              <h3 class="display-3 font-weight-bold white-text mb-0 pt-md-5 pt-5" style="font-size: 50px; color: rgb(0, 0, 0);">爱旅行！</h3>
+              <hr class="hr-light my-4 w-75">
+              <h4 class="subtext-header mt-2 mb-4">It's a social platform for travel enthusiasts or people who want to travel.</h4>
+              <a href="#!" class="btn btn-rounded btn-outline-white">
+                <i class="fas fa-home "></i> 主页
+              </a>
+            </div>
+            <!--Grid column-->
+          </div>
+          <!--Grid row-->
+        </div>
+        <!-- Content -->
+      </div>
+      <!-- Mask & flexbox options-->
+    </div>
+    <!-- Full Page Intro -->
+  </header>
+  <!--Main layout-->
+  <main>
+
+    <!--Section: about-->
+    <section id="about" class="py-5" style="background-image: url(./img/fj1.png);  background-size: 100% 100%;">
+      
+      <!-- Container -->
+      <div class="container">
+        <!-- Section heading -->
+        <h2 class="h1-responsive font-weight-bold text-center mb-5" style="color: maroon;">为什么选择我们？</h2>
+        <!-- Section description -->
+        <p style="color: rgb(23, 0, 128);" class="lead grey-text text-center w-responsive mx-auto mb-5" >No one will reject the good.The world is so big that I want to see it.
+        </p>
+        <!-- Grid row -->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-lg-5 text-center text-lg-left">
+            <!-- <img class="img-fluid" src="./img/fj1.png" width="625px" height="475px"
+              alt="Sample image"> -->
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-lg-7">
+
+            <!-- Grid row -->
+            <div class="row mb-3">
+
+              <!-- Grid column -->
+              <div class="col-1">
+                <i class="fas fa-share fa-lg purple-text"></i>
+              </div>
+              <!-- Grid column -->
+
+              <!-- Grid column -->
+              <div class="col-xl-10 col-md-11 col-10">
+                <h5 class="font-weight-bold mb-3" style="color: rgb(165, 42, 99);">First of all</h5>
+                <p class="grey-text">In terms of services.You can enjoy better travel services with a relatively low price. You don't need to worry about any life and property safety during the journey. We must be responsible for your food, clothing, housing and transportation.</p>
+              </div>
+              <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+            <!-- Grid row -->
+            <div class="row mb-3">
+
+              <!-- Grid column -->
+              <div class="col-1">
+                <i class="fas fa-share fa-lg purple-text"></i>
+              </div>
+              <!-- Grid column -->
+
+              <!-- Grid column -->
+              <div class="col-xl-10 col-md-11 col-10">
+                <h5 class="font-weight-bold mb-3" style="color: rgb(165, 42, 99);">The second</h5>
+                <p class="grey-text">Whether you have a passion for travel or are new to it.We all have thousands of travel points available for you.Believe that there will always be one for you.</p>
+              </div>
+              <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+            <!--Grid row-->
+            <div class="row">
+
+              <!-- Grid column -->
+              <div class="col-1">
+                <i class="fas fa-share fa-lg purple-text"></i>
+              </div>
+              <!-- Grid column -->
+
+              <!-- Grid column -->
+              <div class="col-xl-10 col-md-11 col-10">
+                <h5 class="font-weight-bold mb-3" style="color: rgb(165, 42, 99);">The last</h5>
+                <p class="grey-text mb-0">No matter what the purpose of your trip is or how many people are traveling with you?We are able to choose a satisfactory travel plan for you.</p>
+              </div>
+              <!-- Grid column -->
+
+            </div>
+            <!--Grid row-->
+            <br>
+          </div>
+          <!--Grid column-->
+          <br>
+        </div>
+        <!-- Grid row -->
+      <br><br><br><br><br>
+      </div>
+      <!-- Container -->
+
+    </section>
+    <!--Section: about-->
+   
+    <!--Section: projects-->
+   
+    <section id="projects" class="text-center py-5 " >
+      <!-- style="background-image: url(./img/tu1.webp); background-size: 100% 100%;" -->
+<video id="v1" autoplay loop muted style="position: fixed;  
+right: 0px;  
+bottom: 0px;  
+min-width: 100%;  
+min-height: 100%;  
+height: auto;  
+width: auto;  
+margin: 0px;  
+            padding: 0px;  
+/*加滤镜*/
+/*filter: blur(15px); //背景模糊设置 */
+/*-webkit-filter: grayscale(100%);*/  
+/*filter:grayscale(100%); //背景灰度设置*/  
+z-index:-11">
+  <source style=" min-width: 100%;  
+  min-height: 100%;  
+  height: auto;  
+  width: auto;margin: 0px;  
+            padding: 0px;  " src="./img/mv5.mp4" type="video/mp4"  />
+</video>
+  <br><br>
+        <div class="container">
+          <!--Grid row 1-->
+          <h2 class="h1-responsive font-weight-bold text-center mb-5" style="color: rgb(0, 66, 128);">旅行项目</h2>
+          <div class="row">
+            <!--Grid column 1-->
+            <div class="col-md-7 mb-4">
+              <div class="view overlay z-depth-1-half">
+                <img src="./img/fj1.jpg" class="card-img-top" alt="">
+                <div class="mask rgba-white-light"></div>
+              </div>
+            </div>
+            <!--Grid column-->
+            <!--Grid column 2-->
+            <div class="col-md-5 mb-4">
+              <h2>英属维尔京群岛</h2>
+              <hr>
+              <p>英属维尔京群岛像一个弧形的拱门，将加勒比海和大西洋隔开。它位于波多黎各以东60公里，印度西北180公里处。它是安的列斯群岛的一部分。在这个世界级的旅游目的地，没有我们习惯的豪华酒店或夜总会，没有霓虹灯，没有夜晚的音乐，甚至连招牌都很难看到。岛上的人们以最简单、最简单、最自然的方式生活。</p>
+              <a href="#" class="btn btn-indigo">点击了解</a>
+            </div>
+            <!--Grid column-->
+          </div>
+          <!--Grid row-->
+          <!--Grid row 2-->
+          <div class="row">
+    
+            <!--Grid column-->
+            <div class="col-lg-4 col-md-12 mb-4">
+    
+              <!--Card-->
+              <div class="card">
+    
+                <!--Card image-->
+                <div class="view overlay">
+                  <img src="./img/fj2.jpg" class="card-img-top"
+                    alt="">
+                  <a href="#">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+    
+                <!--Card content-->
+                <div class="card-body">
+                  <!--Title-->
+                  <h4 class="card-title">金庙-Golden Temple</h4>
+                  <!--Text-->
+                  <p class="card-text">金庙位于印度边境城市阿姆利则。作为锡克教的圣地，阿姆利则意为“花蜜池塘”。当年只是印度教改革派分支的锡克教，经过几代教徒的不懈努力，最终于16世纪发展成完全独立的宗教，为此，当年锡克教第4代祖师罗姆·达斯曾修建了一座水池，名为“花蜜池塘”，阿姆利则由此得名。而金庙则由锡克教第5代祖师阿尔琼1589年主持建造，1601年完工，迄今已有400年历史。因该庙门及大小19个圆形寺顶均贴满金箔，在阳光照耀下，分外璀璨夺目，一直以来被锡克人尊称为“上帝之殿”。</p>
+                  <a href="#!" class="btn btn-indigo">点击了解</a>
+                </div>
+    
+              </div>
+              <!--/.Card-->
+    
+            </div>
+            <!--Grid column-->
+    
+            <!--Grid column-->
+            <div class="col-lg-4 col-md-6 mb-4">
+    
+              <!--Card-->
+              <div class="card">
+    
+                <!--Card image-->
+                <div class="view overlay">
+                  <img src="./img/fj3.jpg" class="card-img-top"
+                    alt="">
+                  <a href="#">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+    
+                <!--Card content-->
+                <div class="card-body">
+                  <!--Title-->
+                  <h4 class="card-title">纽约-New York</h4>
+                  <!--Text-->
+                  <p class="card-text">除了帝国大厦和自由女神像，横跨纽约东河的布鲁克林大桥当数纽约的又一个标志性建筑了。至少在电影和电视画面中，人们对这座以曼哈顿的璀璨灯海为背景的长达487米的悬索桥已经不陌生了。除了充当影视作品中的场景外，布鲁克林大桥在过去的120年中还无数次的被艺术家们再现在自己的画布上。美国著名诗人克莱恩于1930年发表的诗作《大桥》更是给这座连接纽约曼哈顿半岛和布鲁克林区的双层悬索桥罩上了一层神秘的面纱。</p>
+                  <a href="#" class="btn btn-indigo">点击了解</a>
+                </div>
+    
+              </div>
+              <!--/.Card-->
+    
+            </div>
+            <!--Grid column-->
+    
+            <!--Grid column-->
+            <div class="col-lg-4 col-md-6 mb-4">
+    
+              <!--Card-->
+              <div class="card">
+    
+                <!--Card image-->
+                <div class="view overlay">
+                  <img src="./img/fj4.jpg" class="card-img-top"
+                    alt="">
+                  <a href="#">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+    
+                <!--Card content-->
+                <div class="card-body">
+                  <!--Title-->
+                  <h4 class="card-title">印度泰姬陵-Taj Mahal</h4>
+                  <!--Text-->
+                  <p class="card-text">坐落于印度古都阿格的泰姬陵，是世界七大奇迹之一，到印度旅游的人士，大都是慕它的盛名而来。这座世界七大建筑奇迹背后其实有一段哀怨缠绵的历史，了解它的历史的背景，确能增加观赏泰姬陵的趣味。17世纪莫卧儿帝国皇帝沙杰汉为纪念其爱妃慕塔芝玛，动用了数万名工人，以宝石镶饰修建陵寝，图案之细致令人叫绝。泰姬陵最引人瞩目的是用纯白大理石砌建而成的主体建筑，皇陵上下左右工整对称，中央圆顶高六十二米，令人叹为观止。四周有四座高约四十一米的尖塔，塔与塔之间耸立了镶满三十五种不同类型的半宝石的墓碑。</p>
+                  <a href="#" class="btn btn-indigo">点击了解</a>
+                </div>
+    
+              </div>
+              <!--/.Card-->
+    
+            </div>
+            <!--Grid column-->
+    
+          </div>
+          <!--Grid row-->
+        </div>
+        
+
+  </section>
+    
+    <!--Section: projects-->
+
+    <!--Section: gallery-->
+    <section id="gallery" class="text-center py-5" style="background-image: url(./img/mm10.png); background-size: 100% 100%;">
+
+      <!-- Container -->
+      <div class="container">
+
+        <!-- Section heading -->
+        <h2 class="h1-responsive font-weight-bold mb-5" style="color: gold;">记录瞬间</h2>
+        <!-- Section description -->
+        <p style="color: blueviolet;" class="grey-text w-responsive mx-auto mb-5">The following photos are the ones our customers send back to us after they arrive at their destination.</p>
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <div id="mdb-lightbox-ui"></div>
+
+            <div class="mdb-lightbox">
+
+              <figure class="col-md-4">
+                <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg" data-size="1600x1067">
+                  <img src="img/mm1.png" 
+                    class="img-fluid z-depth-1-half"  width="450px" height="680px"/>
+                </a>
+              </figure>
+
+              <figure class="col-md-4">
+                <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(150).jpg" data-size="1600x1067">
+                  <img src="img/mm2.png"
+                    class="img-fluid z-depth-1-half" width="450px" height="680px" />
+                </a>
+              </figure>
+
+              <figure class="col-md-4">
+                <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(152).jpg" data-size="1600x1067">
+                  <img src="img/mm3.png"
+                    class="img-fluid z-depth-1-half" width="450px" height="680px" />
+                </a>
+                <br><br>
+              </figure>
+              <br>
+              <figure class="col-md-4">
+                <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(42).jpg" data-size="1600x1067">
+                  <img src="img/mm4.png"
+                    class="img-fluid z-depth-1-half" width="450px" height="680px" />
+                </a>
+              </figure>
+
+              <figure class="col-md-4">
+                <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(151).jpg" data-size="1600x1067">
+                  <img src="img/mm5.png"
+                    class="img-fluid z-depth-1-half" width="450px" height="680px" />
+                </a>
+              </figure>
+
+              <figure class="col-md-4">
+                <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(40).jpg" data-size="1600x1067">
+                  <img src="img/mm6.png"
+                    class="img-fluid z-depth-1-half" width="450px" height="680px" />
+                    <br><br><br>
+                </a>
+              </figure>
+               <br><br><br>
+              <figure class="col-md-4">
+                <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(148).jpg" data-size="1600x1067">
+                  <img src="img/mm7.png"
+                    class="img-fluid z-depth-1-half" width="450px" height="680px" />
+                </a>
+              </figure>
+
+              <figure class="col-md-4">
+                <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(147).jpg" data-size="1600x1067">
+                  <img src="img/mm8.png"
+                    class="img-fluid z-depth-1-half" width="450px" height="680px" />
+                </a>
+              </figure>
+
+              <figure class="col-md-4">
+                <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(149).jpg" data-size="1600x1067">
+                  <img src="img/mm9.png"
+                  class="img-fluid z-depth-1-half" width="450px" height="680px" />
+                </a>
+              </figure>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <!-- Container -->
+
+    </section>
+    <!--Section: gallery-->
+   
+    <section class="view" class="text-center py-5" id="mhsg" style="margin:0;">
+      <br><br><br>
+      <video id="v1" autoplay loop muted style="position: fixed;  
+      right: 0px;  
+      bottom: 0px;  
+      min-width: 100%;  
+      min-height: 100%;  
+      height: auto;  
+      width: auto;  
+      margin: 0px;  
+                  padding: 0px;  
+      /*加滤镜*/
+      /*filter: blur(15px); //背景模糊设置 */
+      /*-webkit-filter: grayscale(100%);*/  
+      /*filter:grayscale(100%); //背景灰度设置*/  
+      z-index:-11">
+        <source style=" min-width: 100%;  
+        min-height: 100%;  
+        height: auto;  
+        width: auto;margin: 0px;  
+                  padding: 0px;  " src="./img/mv2.mp4" type="video/mp4"  />
+      </video>
+
+      <h2 class="h1-responsive font-weight-bold text-center mb-5" style="color: rgb(0, 66, 128);">美好时光</h2>
+      <div>
+        <div style="float:left;width:40%;">
+          <video src="./img/mv3.MP4" controls="controls" autoplay loop muted height="400px" ></video>
+        </div>
+        <div style="float:right;width:50%;color:rgb(255, 127, 80);size: 35px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;旅游感悟常人说:“不登山，不知山高;不涉水，不晓水深;不赏奇景，怎知其绝妙。”“读万卷书，还须行万里路。”只有亲身实践，身临其境，才有切身体会。登高一望，才会领略到杜甫“会当凌绝顶，一览众山小”的气魄;驻足山中，才会感受到鲁迅先生“躲进小楼成一统，管他春夏与秋冬”的奥秘;跋山涉水，才能体会到李白“五岳寻仙不辞迈，一生好入名山游”的追求。一旦大自然别样的风景去占据视野和思想，你会觉得，生活并不总是乏味，一切都是那么完美，处处充满阳光。<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;游一处风景，寻一处特色;见一处特色，悟一片心得。江南的绮丽，塞北的广漠，能唤起我们对大自然的尊重和敬畏，如果你能和此地人沟通结识，赋美景以人文，还自然以生命，你会觉得，还有比自然景观更深刻的领悟――不同的水土养不同的人，都具有各自的优势和特点。真是一花一世界，万花装扮春。</div>
+      </div>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+      <hr>
+      <div>
+        <div style="float:left;width:40%;color: rgba(0, 132, 255, 0.884);size: 35px;">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在生活。这样，人的心胸才会变得更宽广;这样，我们才会以更好的心态去面对自己的生活。
+          我依稀清楚地记得《致我们终将逝去的青春》里面描写的见证爱情的婺源的老槐树,也乐此不疲地向往去婺源找一找那棵老槐树。后来的后来我发现也许小说就不过是小说罢了，偌大的婺源怎么就能找到小说里的那棵老槐树。其实我所相信的不过是一种寄托，对爱情的寄托罢了。
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;旅行的意义是为了让自己体验不一样的生活,旅行归来已经过去两天了，沉淀了内心。这两天的旅途算不上开心,也许是糟糕的一次旅行。我没有忘记自己去之前是多么向往的心情﹐并不是因为婺源不够魅力﹐是因为自己带着太多的心情去遥望那漫山逼野的金黄。登高望远﹐站在江铃的山坡上，望着一山的金黄，一层层的油菜花美得让人心醉，可是我的心,却碎﹐亦累。</div>
+        </div>
+        <div style="float:right;width:50%;"><video src="./img/mv4.MP4" controls="controls" autoplay loop muted height="400px" ></video>
+      </div>
+    </section>
+    
+   
+    
+    <!-- Section: Testimonials v.4 -->
+    <section id="testimonials" class="text-center py-5" style="background-image: url(./img/tx1.png);  background-size: 100% 100%;">
+
+      <!-- Section heading -->
+      <h2 class="h1-responsive font-weight-bold my-5">探险达人</h2>
+
+      <!-- Grid row -->
+      <div class="row">
+
+        <!--Carousel Wrapper-->
+        <div id="multi-item-example" class="carousel testimonial-carousel slide carousel-multi-item mb-5"
+          data-ride="carousel">
+
+          <!--Controls-->
+          <div class="controls-top">
+            <a class="btn-floating light-blue darken-4" href="#multi-item-example" data-slide="prev"><i
+                class="fas fa-chevron-left"></i></a>
+            <a class="btn-floating light-blue darken-4" href="#multi-item-example" data-slide="next"><i
+                class="fas fa-chevron-right"></i></a>
+          </div>
+          <!--Controls-->
+
+          <!--Indicators-->
+          <ol class="carousel-indicators">
+            <li data-target="#multi-item-example" data-slide-to="0" class="active light-blue darken-4"></li>
+            <li data-target="#multi-item-example" data-slide-to="1" class="light-blue darken-4"></li>
+            <li data-target="#multi-item-example" data-slide-to="2" class="light-blue darken-4"></li>
+          </ol>
+          <!--Indicators-->
+
+          <!--Slides-->
+          <div class="carousel-inner" role="listbox">
+
+            <!--First slide-->
+            <div class="carousel-item active">
+
+              <!--Grid column-->
+              <div class="col-md-4">
+                <div class="testimonial">
+                  <!--Avatar-->
+                  <div class="avatar mx-auto">
+                    <img src="./img/r1.png"
+                      class="rounded-circle img-fluid">
+                  </div>
+                  <!--Content-->
+                  <h4 class="font-weight-bold mt-4">约翰·戈达德</h4>
+                  <h6 class="blue-text font-weight-bold my-3">人类学家,探险者</h6>
+                  <p class="font-weight-normal"><i class="fas fa-quote-left pr-2"></i>戈达德于1924年7月29日出生于美国犹他州盐湖城，在加州洛杉矶市长大。当戈达德还是个孩子的时候,他就列了一个生命清单，写下了一生中想做的127件事情，从与非洲的俾格米人和婆罗洲 （加里曼丹岛的旧称）的猎头族一起生活到探索世界上最大的河流和最高的山峰。</p>
+                  <!--Review-->
+                  <div class="grey-text">
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star-half-alt"> </i>
+                  </div>
+                </div>
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-md-4 clearfix d-none d-md-block">
+                <div class="testimonial">
+                  <!--Avatar-->
+                  <div class="avatar mx-auto">
+                    <img src="./img/ren2.png"
+                      class="rounded-circle img-fluid">
+                  </div>
+                  <!--Content-->
+                  <h4 class="font-weight-bold mt-4">贝尔·格里尔斯</h4>
+                  <h6 class="blue-text font-weight-bold my-3">探险者</h6>
+                  <p class="font-weight-normal"><i class="fas fa-quote-left pr-2"></i>贝尔·格里尔斯（Bear Grylls），尊称“贝爷”，被誉为“世界最强打野”，“地球食物链顶端的男人”，1974年6月7日出生于英国怀特岛本布里奇城，探险家、主持人、作家、演讲家。因户外求生节目《荒野求生》而火爆全球，在野外，他能找到的生物几乎全部都吃，在常人看来难以下咽的东西在他眼里都是蛋白质。</p>
+                  <!--Review-->
+                  <div class="grey-text">
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                  </div>
+                </div>
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-md-4 clearfix d-none d-md-block">
+                <div class="testimonial">
+                  <!--Avatar-->
+                  <div class="avatar mx-auto">
+                    <img src="./img/ren3.png"
+                      class="rounded-circle img-fluid">
+                  </div>
+                  <!--Content-->
+                  <h4 class="font-weight-bold mt-4">埃德·斯塔福德</h4>
+                  <h6 class="blue-text font-weight-bold my-3">探险者</h6>
+                  <p class="font-weight-normal"><i class="fas fa-quote-left pr-2"></i>埃德·斯塔福德，尊称“德爷”，1976年出生，前驻阿富汗英国陆军上尉，被誉为“现代鲁宾逊”。他在《单挑荒野》节目中将求生技能发挥到极致，最擅长的就是“荒岛求生”，而且他的求生难度比贝爷更大，生存技巧也不逊于贝爷，只是知名度在国内较小。</p>
+                  <!--Review-->
+                  <div class="grey-text">
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="far fa-star"> </i>
+                  </div>
+                </div>
+              </div>
+              <!--Grid column-->
+
+            </div>
+            <!--First slide-->
+
+            <!--Second slide-->
+            <div class="carousel-item">
+
+              <!--Grid column-->
+              <div class="col-md-4">
+                <div class="testimonial">
+                  <!--Avatar-->
+                  <div class="avatar mx-auto">
+                    <img src="./img/ren4.png"
+                      class="rounded-circle img-fluid">
+                  </div>
+                  <!--Content-->
+                  <h4 class="font-weight-bold mt-4">麦可霍克/露丝·英格兰</h4>
+                  <h6 class="blue-text font-weight-bold my-3">荒岛生存者</h6>
+                  <p class="font-weight-normal"><i class="fas fa-quote-left pr-2"></i>Discovery探索频道的一档最新节目《野外求生夫妻档》。展出的前美国陆军特种部队生存专家：麦可霍克和他的妻子记者：露丝·英格兰的生存技能。他们夫妻的生存技巧不及贝爷和埃德，但是这种夫妻一同求生的形式很新颖，在节目中，两人合作寻找食物，偶尔吵点小架，但会很快合好，麦克时常总是细心的照顾妻子，而露丝也不会无理取闹，整个求生过程让人感觉很温馨，可谓是高难度的秀恩爱。</p>
+                  <!--Review-->
+                  <div class="grey-text">
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star-half-alt"> </i>
+                  </div>
+                </div>
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-md-4 clearfix d-none d-md-block">
+                <div class="testimonial">
+                  <!--Avatar-->
+                  <div class="avatar mx-auto">
+                    <img src="./img/ren5.png"
+                      class="rounded-circle img-fluid">
+                  </div>
+                  <!--Content-->
+                  <h4 class="font-weight-bold mt-4">杰里米·维德</h4>
+                  <h6 class="blue-text font-weight-bold my-3">生物学家</h6>
+                  <p class="font-weight-normal"><i class="fas fa-quote-left pr-2"></i>杰里米·维德（Jeremy Wade），尊称“老爹”，1956年3月23日出生于英国，是一名生物学家，电视节目主持人，极限钓鱼者和作家。他最为人所熟知的身份是电视系列节目《河中巨怪》的主持人。他最喜欢捕捉大鱼，在世界各地捕到过各种巨大的鱼类。</p>
+                  <!--Review-->
+                  <div class="grey-text">
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                  </div>
+                </div>
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-md-4 clearfix d-none d-md-block">
+                <div class="testimonial">
+                  <!--Avatar-->
+                  <div class="avatar mx-auto">
+                    <img src="./img/ren6.png"
+                      class="rounded-circle img-fluid">
+                  </div>
+                  <!--Content-->
+                  <h4 class="font-weight-bold mt-4">奈吉尔·马文</h4>
+                  <h6 class="blue-text font-weight-bold my-3">生物学家，鸟类学家</h6>
+                  <p class="font-weight-normal"><i class="fas fa-quote-left pr-2"></i>奈吉尔·马文（Nigel Marven），1960年11月27日出生，英国野生生物学者、节目主持人、作者和鸟类学家。他是BBC、ITV、第五频道、探索和动物星球最受欢迎的人物之一，被称为“电视界的斯皮尔伯格”。尤其是他的节目《史前公园》在中国很受欢迎，是小编小学时期最喜欢的节目，当时觉得他能穿越到史前世界去寻找各种怪兽，并把它们带回来，是一件特别神奇有趣的事，后来知道是特效，但依旧很喜欢他。</p>
+                  <!--Review-->
+                  <div class="grey-text">
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="far fa-star"> </i>
+                  </div>
+                </div>
+              </div>
+              <!--Grid column-->
+
+            </div>
+            <!--Second slide-->
+
+            <!--Third slide-->
+            <div class="carousel-item">
+
+              <!--Grid column-->
+              <div class="col-md-4">
+                <div class="testimonial">
+                  <!--Avatar-->
+                  <div class="avatar mx-auto">
+                    <img src="./img/ren7.png"
+                      class="rounded-circle img-fluid">
+                  </div>
+                  <!--Content-->
+                  <h4 class="font-weight-bold mt-4">布莱迪·巴尔博士</h4>
+                  <h6 class="blue-text font-weight-bold my-3">爬虫类动物学家</h6>
+                  <p class="font-weight-normal"><i class="fas fa-quote-left pr-2"></i>布莱迪·巴尔博士，爬虫类动物专家，是在野外捕捉和研究所有二十三种鳄目爬虫类动物的第一人。国家地理频道电视特辑《动物零距离》，即在赞扬这项历史性的成就。他最擅长徒手或使用简单工具捕捉巨大的鳄鱼，他曾来中国捕捉到了扬子鳄。</p>
+                  <!--Review-->
+                  <div class="grey-text">
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                  </div>
+                </div>
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-md-4 clearfix d-none d-md-block">
+                <div class="testimonial">
+                  <!--Avatar-->
+                  <div class="avatar mx-auto">
+                    <img src="./img/ren8.png"
+                      class="rounded-circle img-fluid">
+                  </div>
+                  <!--Content-->
+                  <h4 class="font-weight-bold mt-4">奥斯汀·史蒂文斯</h4>
+                  <h6 class="blue-text font-weight-bold my-3">捕蛇专家</h6>
+                  <p class="font-weight-normal"><i class="fas fa-quote-left pr-2"></i>奥斯汀·史蒂文斯，南非人，是世界公认的“蛇王”，自幼喜欢与蛇在一起生活，把蛇当做自己的伙伴，许多剧毒的毒蛇在他的身边就像是一个玩偶一样，他带我们走遍世界领略了各大洲最具代表性的毒蛇以及无毒巨蟒，通过人与蛇的近距离接触，让我们对大自然更加的热爱和敬畏，也唤醒了人们保护蛇类以及大自然的意识。中央电视台《人物》栏目关于他的纪录片有：《世界蛇王：奥斯丁·史蒂文斯》、《奥斯丁闯荒野》、《拯救黑曼巴蛇》、《寻找眼镜王蛇》、《寻找南美巨水蟒》、《寻找大蜥蜴》、《追逐食人怪蟒》、《七次致命的攻击》、《寻找科莫多巨蜥》。</p>
+                  <!--Review-->
+                  <div class="grey-text">
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star-half-alt"> </i>
+                  </div>
+                </div>
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-md-4 clearfix d-none d-md-block">
+                <div class="testimonial">
+                  <!--Avatar-->
+                  <div class="avatar mx-auto">
+                    <img src="./img/ren9.png"
+                      class="rounded-circle img-fluid">
+                  </div>
+                  <!--Content-->
+                  <h4 class="font-weight-bold mt-4">戴维·阿滕伯格</h4>
+                  <h6 class="blue-text font-weight-bold my-3">生物学家</h6>
+                  <p class="font-weight-normal"><i class="fas fa-quote-left pr-2"></i>戴维·阿滕伯格，另译大卫·爱登堡。1926年5月8日于伦敦出生，英国生物学家、博物学家、英国广播公司电视节目主持人及制作人。中央电视台《人与自然》节目由赵忠祥为其配音的自然纪录片有百余集，有较高的收视率。他懂天文地理，喜爱动植物，在探险大自然方面具有丰富经验。</p>
+                  <!--Review-->
+                  <div class="grey-text">
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="fas fa-star"> </i>
+                    <i class="far fa-star"> </i>
+                  </div>
+                </div>
+              </div>
+              <!--Grid column-->
+
+            </div>
+            <!--Third slide-->
+
+          </div>
+          <!--Slides-->
+
+        </div>
+        <!--Carousel Wrapper-->
+
+      </div>
+      <!-- Grid row -->
+
+    </section>
+    <!-- Section: Testimonials v.4 -->
+
+    <!--Section: call to action-->
+    <div class="streak streak-md streak-photo"
+      style="background-image:url('https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img(115).jpg')">
+      <div class="flex-center white-text rgba-black-light pattern-1">
+        <ul class="mb-0 list-unstyled">
+          <li>
+            <h2 class="h2-responsive"><i class="fas fa-quote-left" aria-hidden="true"></i> 拥抱大自然，它可能会给你归属感~~~ <i class="fas fa-quote-right"
+                aria-hidden="true"></i></h2>
+          </li>
+          <li class="mb-0">
+            <h5 class="text-center font-italic mb-0">~ 敬赠所有旅行爱好者！</h5>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--Section: call to action-->
+
+
+    <!--Section: articles-->
+    
+    <section id="articles" class="text-center py-5" style="background-image: url(./img/dy1.png);  background-size: 100% 100%;">
+
+      <!-- Heading -->
+      <h2 class="mb-5 font-weight-bold text-center">产品购买</h2>
+
+      <!--Grid row-->
+      <div class="row">
+
+        <!--Grid column-->
+        <div class="col-lg-5 col-md-12">
+          <!-- Form contact -->
+          <form class="p-5 grey-text">
+            <div class="md-form form-sm"> 
+              <input type="text" id="form1" class="form-control form-control-sm" >
+              <label for="form1">您的旅行目的地：</label>
+            </div>
+            <div class="md-form form-sm"> 
+              <input type="number" id="form2" class="form-control form-control-sm">
+              <label for="form2">旅行人数：</label>
+            </div>
+            <div class="md-form form-sm"> 
+              <input type="date" id="form3" class="form-control form-control-sm">
+              <label for="form3">出发日期：</label>
+            </div>
+            <div class="md-form form-sm"> 
+              <input type="date" id="form3" class="form-control form-control-sm">
+              <label for="form3">结束日期：</label>
+            </div>
+            <div class="md-form form-sm"> 
+              <input type="text" id="form3" class="form-control form-control-sm">
+              <label for="form3">预计花费金额：</label>
+            </div>
+            <div class="text-center mt-4">
+              <a  href="#" ><button class="btn btn-primary" id="oop">确认提交！</button></a>
+            </div>
+          </form>
+          <!-- Form contact -->
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-7 col-md-12">
+
+          <!--Grid row-->
+          <div class="row text-center">
+
+            <!--Grid column-->
+            <div class="col-lg-4 col-md-12 mb-3">
+
+              <p><i class="fas fa-map fa-1x mr-2 grey-text"></i>总部地点:重庆交通大学</p>
+
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-4 col-md-6 mb-3">
+
+              <p><i class="fas fa-building fa-1x mr-2 grey-text"></i>工作时间:8:00-22:00</p>
+
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-4 col-md-6 mb-3">
+
+              <p><i class="fas fa-phone fa-1x mr-2 grey-text"></i>+86 987654321</p>
+
+            </div>
+            <!--Grid column-->
+
+          </div>
+          <!--Grid row-->
+
+          <!--Sogou 地图-->
+          <div id="map-container" class="z-depth-1-half map-container mb-5" style="height: 400px"></div>
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+    </section>
+    <!--Section: Contact-->
+    <!--Section: articles-->
+
+    <!--Section: contact-->
+    <section id="contact" class="py-5" style="background-image: url(./img/tt2.png);  background-size: 100% 100%;">
+
+      <div class="container">
+
+        <!-- Section heading -->
+        <h2 class="h1-responsive font-weight-bold text-center mb-5">关于我们</h2>
+        <!-- Section description -->
+        <p class="text-center w-responsive mx-auto mb-5">If you have better ideas or suggestions can contact us!</p>
+
+        <!-- Grid row -->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-9 mb-md-0 mb-5">
+
+            <form>
+
+              <!-- Grid row -->
+              <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-6">
+                  <div class="md-form mb-0">
+                    <input type="text" id="contact-name" class="form-control">
+                    <label for="contact-name" class="" style="color: chocolate;">Your name</label>
+                  </div>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-6">
+                  <div class="md-form mb-0">
+                    <input type="text" id="contact-email" class="form-control">
+                    <label for="contact-email" class="" style="color: chocolate;">Your email</label>
+                  </div>
+                </div>
+                <!-- Grid column -->
+
+              </div>
+              <!-- Grid row -->
+
+              <!-- Grid row -->
+              <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-12">
+                  <div class="md-form mb-0">
+                    <input type="text" id="contact-Subject" class="form-control">
+                    <label for="contact-Subject" class="" style="color: chocolate;">Subject</label>
+                  </div>
+                </div>
+                <!-- Grid column -->
+
+              </div>
+              <!-- Grid row -->
+
+              <!-- Grid row -->
+              <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-12">
+                  <div class="md-form">
+                    <textarea type="text" id="contact-message" class="form-control md-textarea" rows="3"></textarea>
+                    <label for="contact-message" style="color: chocolate;">Your message</label>
+                  </div>
+                </div>
+                <!-- Grid column -->
+
+              </div>
+              <!-- Grid row -->
+
+            </form>
+
+            <div class="text-center text-md-left">
+              <a class="btn btn-purple btn-md " href="#">提交</a>
+            </div>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 text-center">
+            <ul class="list-unstyled mb-0">
+              <li>
+                <i class="fas fa-map-marker-alt fa-2x purple-text"></i>
+                <p style="color: brown;">重庆交通大学科学城校区</p>
+              </li>
+              <li>
+                <i class="fas fa-phone fa-2x mt-4 purple-text"></i>
+                <p style="color: brown;">+86 123456789</p>
+              </li>
+              <li>
+                <i class="fas fa-envelope fa-2x mt-4 purple-text"></i>
+                <p class="mb-0" style="color: brown;">重交岳云鹏@qq.com</p>
+              </li>
+            </ul>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </div>
+
+    </section>
+    <!--Section: contact-->
+   
+  </main>
+  <!--Main layout-->
+
+  <!-- Footer -->
+  <footer class="page-footer unique-color-dark" style="background-image: url(./img/bb2.png);  background-size: 100% 100%;">
+
+    <!-- Social buttons -->
+    <div class="primary-color" style="background-image: url(./img/logo3.png);  background-size: 100% 100%;">
+      <div class="container" >
+        <!--Grid row-->
+        <div class="row py-4 d-flex align-items-center" >
+
+          <!--Grid column-->
+          <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0" >
+            <h6 class="mb-0 white-text" style="color: rgb(255, 60, 0);">有任何建议或者看法欢迎联系我们！</h6>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-6 col-lg-7 text-center text-md-right">
+            <!--Facebook-->
+            <a class="fb-ic ml-0" href="./login.html">
+              <i >退出登录 </i>
+            </a>
+            <!--Twitter-->
+            <a class="tw-ic" href="./login.html">
+              <i > 注册账号</i>
+            </a>
+            <!--Google +-->
+            <a class="gplus-ic" href="#articles">
+              <i >购物车 </i>
+            </a>
+            <!--Linkedin-->
+            <a class="li-ic" href="#">
+              <i >回到首页</i>
+            </a>
+            <!--Instagram-->
+            <a class="ins-ic">
+              <i > </i>
+            </a>
+          </div>
+          <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+      </div>
+    </div>
+    <!-- Social buttons -->
+
+    <!--Footer Links-->
+    <div class="container mt-5 mb-4 text-center text-md-left">
+      <div class="row mt-3">
+
+        <!--First column-->
+        <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+          <h6 class="text-uppercase font-weight-bold">
+            <strong>爱旅行--只为专注旅行！</strong>
+          </h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p>Tour a scenery, find a feature;See a feature, realize a piece of experience.The beauty of the south and the vastness of the north evoke our respect and awe for nature.</p>
+        </div>
+        <!--/.First column-->
+
+        <!--Second column-->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <h6 class="text-uppercase font-weight-bold">
+            <strong>旅行产品:</strong>
+          </h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p>
+            <a href="#projects">英属维尔京群岛</a>
+          </p>
+          <p>
+            <a href="#projects">金庙-Golden Temple</a>
+          </p>
+          <p>
+            <a href="#projects">纽约-New York</a>
+          </p>
+          <p>
+            <a href="#projects">印度泰姬陵-Taj Mahal</a>
+          </p>
+        </div>
+        <!--/.Second column-->
+
+        <!--Third column-->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <h6 class="text-uppercase font-weight-bold">
+            <strong>友情链接:</strong>
+          </h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p>
+            <a href="https://qige.io/" target="_blank">棋歌教学网</a>
+          </p>
+          <p>
+            <a href="https://www.csdn.net/" target="_blank">CSDN</a>
+          </p>
+          <p>
+            <a href="https://www.baidu.com/" target="_blank">百度一下</a>
+          </p>
+          <p>
+            <a href="http://www.cqjtu.edu.cn/" target="_blank">重庆交通大学官网</a>
+          </p>
+        </div>
+        <!--/.Third column-->
+
+        <!--Fourth column-->
+        <div class="col-md-4 col-lg-3 col-xl-3">
+          <h6 class="text-uppercase font-weight-bold">
+            <strong>联系我们:</strong>
+          </h6>
+          <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+          <p>
+            <i class="fas fa-home  mr-3"></i>重庆交通大学科学城校区</p>
+          <p>
+            <i class="fas fa-envelope mr-3"></i>重交岳云鹏@qq.com</p>
+          <p>
+            <i class="fas fa-phone mr-3"></i> + 86 123456789</p>
+          <p>
+            <i class="fas fa-print mr-3"></i> + 86 7758546</p>
+        </div>
+        <!--/.Fourth column-->
+
+      </div>
+    </div>
+    <!--/.Footer Links-->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2021 Copyright:
+      <a href="http://www.cqjtu.edu.cn/" target="_blank"> cqjtu.edu.cn</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
+
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+
+  <!-- Your custom scripts (optional) -->
+  <script type="text/javascript">
+    // MDB Lightbox Init
+    $(function () {
+      $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+    });
+    // 以下为动画效果新添加的两条语句
+    // Adding animations to the sections, 使用的是淡入, 你也可以试试zoomIn等动画
+    $("section").addClass("wow fadeIn");
+    // Animations Init, 注意必须放在ready方法中以防WOW对象没能加载成功
+    $(document).ready(function () {
+      new WOW().init();
+    });
+    
+    /** 定义函数, 加载指定坐标的地图 */
+    function showMap() {
+      var myLatlng = new sogou.maps.LatLng(29.4902, 106.5714);
+      var myOptions = {
+        zoom: 13,
+        center: myLatlng,
+        mapTypeId: sogou.maps.MapTypeId.ROADMAP
+      };
+      map = new sogou.maps.Map(document.getElementById("map-container"), myOptions);
+      marker = new sogou.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: "重庆交通大学"
+      });
+    }
+    // 设置事件侦听器, 当窗口加载时调用 showMap 函数
+    sogou.maps.event.addDomListener(window, 'load', showMap);
+  </script>
+
+</body>
+
+</html>
